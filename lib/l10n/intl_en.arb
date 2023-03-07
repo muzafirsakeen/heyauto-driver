@@ -1,0 +1,22 @@
+{
+"welcometext": "Hi Welcome",
+  "chooselang": "Choose Your Language",
+  "name": "Name",
+  "password": "Password",
+  "welcomeback": "Welcome \nBack",
+  "createacc": "Create\n Account",
+  "login": "Login",
+  "signup": "Signup",
+  "email": "Email",
+  "ok": "ok",
+  "invalidcredential": "Invalid Credentials",
+  "nexe": "next",
+  "forgotpass": "Forgot Password",
+  "donthaveacc": "Dont have an Account?",
+  "alreadyhave": "Already have an account?",
+  "pleaseenterboth": "Please enter your email and password",
+  "pleaseenteremail": "Please enter your email",
+  "pleaseenterpass": "Please enter your Password"
+
+
+}
