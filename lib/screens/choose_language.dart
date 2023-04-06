@@ -25,154 +25,167 @@ class _LangsetState extends State<Langset> {
   @override
   Widget build(BuildContext context) {
 
-    return Scaffold(
+    return GestureDetector(
 
+      onTap:(){
+        FocusScopeNode currentFocus = FocusScope.of(context);
 
-      body: Container(
-        width: double .infinity,
-        height: double.infinity,
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors:
-                [
-                  Color(0xff071b2c),
-                  Color(0xff071b2c),
-                ]
-            )
-        ),
-        child:  Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          // mainAxisAlignment: MainAxisAlignment.spaceAround,
-          children: [
-        Column(
-        children: [
-        Image.asset("assets/images/heyautos.png",
-          height: 300,
-          width: 300,
+        if (!currentFocus.hasPrimaryFocus) {
+          currentFocus.unfocus();
+        }
+      },
 
-
-        ),
-
-          const Divider(),
+      child: Scaffold(
 
 
 
-               Container(
-                 padding: const EdgeInsets.only(left: 50.0,right: 50),
 
-                   child: Center(
-                   
-                   child: Text(S.of(context).chooselang,style: const TextStyle( color:Color(
-                       0xfaf6f3f0),
-                       
-                       fontWeight: FontWeight.normal,fontSize: 17,wordSpacing: 7),
+        body: Stack(
+          alignment: Alignment.center,
+
+          children:[ Container(
+            width: double .infinity,
+            height: double.infinity,
+            decoration: const BoxDecoration(
+                gradient: LinearGradient(begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors:
+                    [
+                    Color(0xff04491e),
+                      Color(0xff0e6390)
+
+            ]
+                )
+            ),
+            child:  Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              // mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+            Column(
+            children: [
+            Image.asset("assets/images/heyautos.png",
+              height: 300,
+              width: 300,
+
+
+            ),
+
+              const Divider(),
+
+
+
+                   Container(
+                     padding: const EdgeInsets.only(left: 50.0,right: 50),
+
+                       child: Center(
+
+                       child: Text(S.of(context).chooselang,style: const TextStyle( color:Color(
+                           0xfaf6f3f0),
+
+                           fontWeight: FontWeight.normal,fontSize: 17,wordSpacing: 7),
+                       ),
+                     ),
                    ),
-                 ),
+              const Divider(),
+              const Divider(),
+              const Divider(),
+
+             Container(margin: new EdgeInsets.symmetric(vertical:40.0),
+
+               height:50,
+               width: 200,
+               decoration: BoxDecoration(
+                   color: const Color(0xb8fdfbfb),
+                   borderRadius: BorderRadius.circular(25)
+                 //more than 50% of width makes circle
                ),
-          const Divider(),
-          const Divider(),
-          const Divider(),
+               padding: const EdgeInsets.only(left:30, right:30),
 
-          const Divider(),
-          const Divider(),
-          const Divider(),
-          const Divider(),
+               child: Center( child:  Theme(
 
-         Container(
-           height:50,
-           width: 200,
-           decoration: BoxDecoration(
-               color: const Color(0xb8fdfbfb),
-               borderRadius: BorderRadius.circular(25)
-             //more than 50% of width makes circle
-           ),
-           padding: const EdgeInsets.only(left:30, right:30),
+                 data: Theme.of(context).copyWith(
+                   canvasColor: const Color(0xff84919e),
 
-           child: Center( child:  Theme(
+                 ),
 
-             data: Theme.of(context).copyWith(
-               canvasColor: const Color(0xff84919e),
+                 child: DropdownButton<String>(
+                     items: const[
+
+                       DropdownMenuItem(value: 'en',child: Text("English"),
+                       ),
+                       DropdownMenuItem(value: 'ml',child: Text("മലയാളം"),
+                       ),
+                       DropdownMenuItem(value: 'hi',child: Text("हिन्दी"),
+                       )
+
+                     ],
+
+
+                     value: dropdownValue,
+                     icon: const Icon(Icons.language),
+                     style: const TextStyle(color: Color(0xff070707),fontSize: 20,),
+
+
+                     underline: Container(height: 2,
+                     color: Colors.transparent,
+
+                     ),
+
+                     onChanged:(String? newValue){
+                   setState(() {
+                     context.read<LanguageChangeProvider>().changeLocale(newValue!);
+
+                     dropdownValue = newValue;
+                   });
+                     }
+
+                     ),
+               ),
+             ),
 
              ),
 
-             child: DropdownButton<String>(
-                 items: const[
-
-                   DropdownMenuItem(value: 'en',child: Text("English"),
-                   ),
-                   DropdownMenuItem(value: 'ml',child: Text("മലയാളം"),
-                   ),
-                   DropdownMenuItem(value: 'hi',child: Text("हिन्दी"),
-                   )
-
-                 ],
-
-
-                 value: dropdownValue,
-                 icon: const Icon(Icons.language),
-                 style: const TextStyle(color: Color(0xff070707),fontSize: 20,),
-
-
-                 underline: Container(height: 2,
-                 color: Colors.transparent,
-
-                 ),
-
-                 onChanged:(String? newValue){
-               setState(() {
-                 context.read<LanguageChangeProvider>().changeLocale(newValue!);
-
-                 dropdownValue = newValue;
-               });
-                 }
-
-                 ),
-           ),
-         ),
-         ),
 
 
 
 
 
-          const Divider(),
-          const Divider(),
-          const Divider(),
-          const Divider(),
-          const Divider(),
-          const Divider(),
-          const Divider(),
-          const Divider(),
-          const Divider(),
 
-          ElevatedButton(
-            onPressed: (){
-            Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const logins()));
-            if (kDebugMode) {
-              print("work");
-            }
-            },
-            style: ElevatedButton.styleFrom(
-              backgroundColor: const Color(0xffeeeeee),
+              Container(
+                margin: new EdgeInsets.symmetric(vertical:60.0),
+
+                  child: ElevatedButton(
+
+                  onPressed: (){
+                  Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=>const logins()));
+                  if (kDebugMode) {
+                    print("work");
+                  }
+                  },
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: const Color(0xffeeeeee),
 
 
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(40),),
-                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 5),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(40),),
+                        padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 5),
 
 
-                  //border radius equal to or more than 50% of width
+                        //border radius equal to or more than 50% of width
 
+                  ),
+                  child: const Icon(Icons.arrow_forward_rounded,color: Color(0xffeddc0a), size: 40,),
+                ),
+              ),
+
+                ],),
+              ],
             ),
-            child: const Icon(Icons.arrow_forward_rounded,color: Color(0xffeddc0a), size: 40,),
           ),
-
-            ],),
-          ],
+       ],
         ),
-      ),
 
+      ),
     );
   }
 }

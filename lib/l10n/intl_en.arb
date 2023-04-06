@@ -6,7 +6,7 @@
   "welcomeback": "Welcome \nBack",
   "createacc": "Create\n Account",
   "login": "Login",
-  "signup": "Signup",
+  "signup": "SignUp",
   "email": "Email",
   "ok": "ok",
   "invalidcredential": "Invalid Credentials",
@@ -16,7 +16,11 @@
   "alreadyhave": "Already have an account?",
   "pleaseenterboth": "Please enter your email and password",
   "pleaseenteremail": "Please enter your email",
-  "pleaseenterpass": "Please enter your Password"
+  "pleaseenterpass": "Please enter your Password",
+  "pleasefillotp": "Please fill the OTP",
+  "resendotp": "Resend OTP",
+  "Notrecieved": "Not Received.?",
+  "backsign": "Back to SignUp"
 
 
 }

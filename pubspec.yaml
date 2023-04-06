@@ -49,10 +49,11 @@ dependencies:
   http:
   intl: ^0.17.0
   sqflite: ^2.2.4+1
-  camera: ^0.10.3
+  camera: ^0.10.3+2
   connectivity_plus: ^2.0.2
   sidebarx: ^0.14.0
   image_picker: ^0.8.5+3
+  image_cropper: ^3.0.1
   js: ^0.6.2
   fluttertoast: ^8.2.1
   flutter_bloc: ^8.1.2
@@ -66,7 +67,13 @@ dependencies:
   geoflutterfire:
   custom_info_window: ^1.0.1
   flutter_switch: ^0.3.2
-
+  photo_view:
+  google_ml_kit:
+  permission_handler:
+  awesome_loader_null_safety: ^0.0.2
+  path_provider: ^2.0.14
+  google_mlkit_face_detection: ^0.5.0
+  firebase_ml_vision:
 
 
 

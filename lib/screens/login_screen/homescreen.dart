@@ -7,7 +7,7 @@ import '../events.dart';
 // import '../location/driverlocation.dart';
 import '../notes.dart';
 import '../notifications.dart';
-import '../privacy_policy.dart';
+import '../profile.dart';
 import '../send_feedback.dart';
 import '../settings.dart';
 
@@ -29,8 +29,8 @@ class _HomePageState extends State<HomePage> {
     var container;
     if (currentPage == DrawerSections.dashboard) {
       container = GHomePage();
-    } else if (currentPage == DrawerSections.contacts) {
-      container = ContactsPage();
+    } else if (currentPage == DrawerSections.profile) {
+      container = Profile();
     } else if (currentPage == DrawerSections.events) {
       container = EventsPage();
     } else if (currentPage == DrawerSections.notes) {
@@ -39,9 +39,9 @@ class _HomePageState extends State<HomePage> {
       container = SettingsPage();
     } else if (currentPage == DrawerSections.notifications) {
       container = NotificationsPage();
-    } else if (currentPage == DrawerSections.privacy_policy) {
-      container = PrivacyPolicyPage();
     } else if (currentPage == DrawerSections.send_feedback) {
+      container = ContactsPage();
+    } else if (currentPage == DrawerSections.contact) {
       container = SendFeedbackPage();
     }
     return Scaffold(
@@ -116,8 +116,8 @@ class _HomePageState extends State<HomePage> {
         children: [
           menuItem(1, "Home", Icons.home_outlined,
               currentPage == DrawerSections.dashboard ? true : false),
-          menuItem(2, "Contacts", Icons.people_alt_outlined,
-              currentPage == DrawerSections.contacts ? true : false),
+          menuItem(2, "Profile", Icons.people_alt_outlined,
+              currentPage == DrawerSections.profile ? true : false),
           menuItem(3, "Trip History", Icons.local_taxi_outlined,
               currentPage == DrawerSections.events ? true : false),
           menuItem(4, "SOS", Icons.sos_outlined,
@@ -125,11 +125,11 @@ class _HomePageState extends State<HomePage> {
           Divider(),
           menuItem(5, "Choose Language", Icons.language,
               currentPage == DrawerSections.settings ? true : false),
-          menuItem(6, "Profile", Icons.person_2_outlined,
+          menuItem(6, "Vehicle Details", Icons.electric_rickshaw_outlined,
               currentPage == DrawerSections.notifications ? true : false),
           Divider(),
           menuItem(7, "Privacy policy", Icons.privacy_tip_outlined,
-              currentPage == DrawerSections.privacy_policy ? true : false),
+              currentPage == DrawerSections. contact ? true : false),
           menuItem(8, "Logout", Icons.logout,
               currentPage == DrawerSections.send_feedback ? true : false),
 
@@ -148,7 +148,7 @@ class _HomePageState extends State<HomePage> {
             if (id == 1) {
               currentPage = DrawerSections.dashboard;
             } else if (id == 2) {
-              currentPage = DrawerSections.contacts;
+              currentPage = DrawerSections.profile;
             } else if (id == 3) {
               currentPage = DrawerSections.events;
             } else if (id == 4) {
@@ -158,14 +158,15 @@ class _HomePageState extends State<HomePage> {
             } else if (id == 6) {
               currentPage = DrawerSections.notifications;
             } else if (id == 7) {
-              currentPage = DrawerSections.privacy_policy;
+              currentPage = DrawerSections.contact
+              ;
             } else if (id == 8) {
               currentPage = DrawerSections.send_feedback;
             }
           });
         },
         child: Padding(
-          padding: EdgeInsets.all(15.0),
+          padding: const EdgeInsets.all(15.0),
           child: Row(
             children: [
               Expanded(
@@ -195,11 +196,12 @@ class _HomePageState extends State<HomePage> {
 
 enum DrawerSections {
   dashboard,
-  contacts,
+  send_feedback,
   events,
   notes,
   settings,
   notifications,
-  privacy_policy,
-  send_feedback,
+  profile,
+  contact,
+
 }

@@ -22,8 +22,10 @@ class MessageLookup extends MessageLookupByLibrary {
 
   final messages = _notInlinedMessages(_notInlinedMessages);
   static Map<String, Function> _notInlinedMessages(_) => <String, Function>{
+        "Notrecieved": MessageLookupByLibrary.simpleMessage("Not Received.?"),
         "alreadyhave":
             MessageLookupByLibrary.simpleMessage("Already have an account?"),
+        "backsign": MessageLookupByLibrary.simpleMessage("Back to SignUp"),
         "chooselang":
             MessageLookupByLibrary.simpleMessage("Choose Your Language"),
         "createacc": MessageLookupByLibrary.simpleMessage("Create\n Account"),
@@ -44,7 +46,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Please enter your email"),
         "pleaseenterpass":
             MessageLookupByLibrary.simpleMessage("Please enter your Password"),
-        "signup": MessageLookupByLibrary.simpleMessage("Signup"),
+        "pleasefillotp":
+            MessageLookupByLibrary.simpleMessage("Please fill the OTP"),
+        "resendotp": MessageLookupByLibrary.simpleMessage("Resend OTP"),
+        "signup": MessageLookupByLibrary.simpleMessage("SignUp"),
         "welcomeback": MessageLookupByLibrary.simpleMessage("Welcome \nBack"),
         "welcometext": MessageLookupByLibrary.simpleMessage("Hi Welcome")
       };

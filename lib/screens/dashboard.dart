@@ -1,9 +1,14 @@
 import 'dart:async';
-import 'dart:ffi';
 import 'package:flutter/material.dart';
+import 'dart:io';
 import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:awesome_loader_null_safety/awesome_loader_null_safety.dart';
 
+var value;
+
+late Socket socket ;
+late CameraPosition cameraPosition;
 class GHomePage extends StatefulWidget {
   const GHomePage({Key? key}) : super(key: key);
 
@@ -16,10 +21,10 @@ class _HomePageState extends State<GHomePage> {
 
   Completer<GoogleMapController> _controller = Completer();
   // on below line we have specified camera position
-  static final CameraPosition _kGoogle = const CameraPosition(
-    target: LatLng(20.42796133580664, 80.885749655962),
-    zoom: 14.4746,
-  );
+  // static final CameraPosition _kGoogle = const CameraPosition(
+  //   target: LatLng(20.42796133580664, 80.885749655962),
+  //   zoom: 14.4746,
+  // );
 
   // on below line we have created the list of markers
   final List<Marker> _markers = <Marker>[
@@ -27,20 +32,41 @@ class _HomePageState extends State<GHomePage> {
   ];
 
   // created method for getting user current location
-  Future<Position> getUserCurrentLocation() async {
-    await Geolocator.requestPermission().then((value){
-    }).onError((error, stackTrace) async {
-      await Geolocator.requestPermission();
-      print("ERROR"+error.toString());
+  getCurrentPosition() async
+  {
+    value = await Geolocator.getCurrentPosition( desiredAccuracy: LocationAccuracy.high);
+    socket = await Socket.connect('127.0.0.1', 1524);
+    setState((){
+      _markers.add(
+          Marker(
+            markerId: MarkerId("2"),
+            icon: markerIcon,
+            position: LatLng(value.latitude, value.longitude),
+            infoWindow: InfoWindow(
+              title: 'My Current Location',
+            ),
+
+          )
+      );
+
+      // specified current users location
+         cameraPosition = new CameraPosition(
+        target: LatLng(value.latitude, value.longitude),
+        zoom: 15,
+      );
+
+
     });
-    return await Geolocator.getCurrentPosition();
+
   }
 
   @override
   void initState() {
     // TODO: implement initState
-    addCustomIcon();
 
+    getCurrentPosition();
+
+    addCustomIcon();
     super.initState();
   }
   void addCustomIcon() {
@@ -61,9 +87,14 @@ class _HomePageState extends State<GHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return value == null ? const Center(
+      child: AwesomeLoader(
+        loaderType: AwesomeLoader.AwesomeLoader1,
+        color: Color(0xff071b2c),
 
-      body: Container(
+      ),
+    ) :
+      Container(
         child: SafeArea(
           // on below line creating google maps
           child: GoogleMap(
@@ -71,7 +102,7 @@ class _HomePageState extends State<GHomePage> {
             mapToolbarEnabled: false,
             zoomControlsEnabled: false,
 
-            initialCameraPosition: _kGoogle,
+            initialCameraPosition: cameraPosition,
             // on below line we are setting markers on the map
             markers: Set<Marker>.of(_markers),
             // on below line specifying map type.
@@ -86,44 +117,72 @@ class _HomePageState extends State<GHomePage> {
             },
           ),
         ),
-      ),
-      // on pressing floating action button the camera will take to user
-      // current location
+      );
 
-      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Color(0xffc56b10),
-        onPressed: () async{
-          getUserCurrentLocation().then((value) async {
-            print(value.latitude.toString() +" "+value.longitude.toString());
+      // on pressing floating action button the camera will take to user
+      // current locatio
+      
+      
+      
+
+      // floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+      //   floatingActionButton: FloatingActionButton(
+      //     backgroundColor: Color(0xffc56b10),
+      //   onPressed: () async{
+          // getUserCurrentLocation().then((value) async {
+          //   print(value.latitude.toString() +" "+value.longitude.toString());
 
             // marker added for current users location
-            _markers.add(
-                Marker(
-                  markerId: MarkerId("2"),
-                  icon: markerIcon,
-                  position: LatLng(value.latitude, value.longitude),
-                  infoWindow: InfoWindow(
-                    title: 'My Current Location',
-                  ),
+    //
+    //
+    //         final GoogleMapController controller = await _controller.future;
+    //         controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+    //         setState(() {
+    //         });
+    //       });
+    //     },
+    //     child: Icon(Icons.navigation),
+    //   ),
+    //
+    //
+    //
 
-                )
+  // }
+}
+  void _showModalBottomSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: const RoundedRectangleBorder(
+
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(35),
+          )),
+      builder: (context) => DraggableScrollableSheet(
+
+          initialChildSize: 0.4,
+          maxChildSize: 0.9,
+          minChildSize: 0.32,
+          expand: false,
+          builder: (context, scrollController) {
+            return SingleChildScrollView(
+              controller: scrollController,
+              child:
+              Column(
+                children: [
+
+
+                ],
+
+
+              ),
+
+
+
             );
-
-            // specified current users location
-            CameraPosition cameraPosition = new CameraPosition(
-              target: LatLng(value.latitude, value.longitude),
-              zoom: 17,
-            );
-
-            final GoogleMapController controller = await _controller.future;
-            controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
-            setState(() {
-            });
-          });
-        },
-        child: Icon(Icons.navigation),
-      ),
+          }),
     );
   }
+
+
 }

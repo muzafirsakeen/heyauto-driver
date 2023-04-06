@@ -120,10 +120,10 @@ class S {
     );
   }
 
-  /// `Signup`
+  /// `SignUp`
   String get signup {
     return Intl.message(
-      'Signup',
+      'SignUp',
       name: 'signup',
       desc: '',
       args: [],
@@ -225,6 +225,46 @@ class S {
     return Intl.message(
       'Please enter your Password',
       name: 'pleaseenterpass',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please fill the OTP`
+  String get pleasefillotp {
+    return Intl.message(
+      'Please fill the OTP',
+      name: 'pleasefillotp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Resend OTP`
+  String get resendotp {
+    return Intl.message(
+      'Resend OTP',
+      name: 'resendotp',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Not Received.?`
+  String get Notrecieved {
+    return Intl.message(
+      'Not Received.?',
+      name: 'Notrecieved',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Back to SignUp`
+  String get backsign {
+    return Intl.message(
+      'Back to SignUp',
+      name: 'backsign',
       desc: '',
       args: [],
     );

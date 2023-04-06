@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heyauto/screens/otpvalid.dart';
 
 import '../generated/l10n.dart';
 
@@ -32,7 +33,9 @@ class _ButtonNewUserState extends State<ButtonNewUser> {
         child: TextButton(
           onPressed: (){
             //need to write code here
-            Navigator.pop(context);
+            Navigator.pushReplacement(context, MaterialPageRoute(
+                builder: (context) => otpvalid()));
+            // Navigator.pop(context);
           },
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
