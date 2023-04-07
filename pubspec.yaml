@@ -73,8 +73,6 @@ dependencies:
   awesome_loader_null_safety: ^0.0.2
   path_provider: ^2.0.14
   google_mlkit_face_detection: ^0.5.0
-  firebase_ml_vision:
-
 
 
 

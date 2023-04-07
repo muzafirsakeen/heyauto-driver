@@ -8,7 +8,7 @@ import 'package:awesome_loader_null_safety/awesome_loader_null_safety.dart';
 var value;
 
 late Socket socket ;
-late CameraPosition cameraPosition;
+CameraPosition? cameraPosition;
 class GHomePage extends StatefulWidget {
   const GHomePage({Key? key}) : super(key: key);
 
@@ -35,7 +35,6 @@ class _HomePageState extends State<GHomePage> {
   getCurrentPosition() async
   {
     value = await Geolocator.getCurrentPosition( desiredAccuracy: LocationAccuracy.high);
-    socket = await Socket.connect('127.0.0.1', 1524);
     setState((){
       _markers.add(
           Marker(
@@ -50,7 +49,7 @@ class _HomePageState extends State<GHomePage> {
       );
 
       // specified current users location
-         cameraPosition = new CameraPosition(
+      cameraPosition = new CameraPosition(
         target: LatLng(value.latitude, value.longitude),
         zoom: 15,
       );
@@ -73,7 +72,7 @@ class _HomePageState extends State<GHomePage> {
 
     BitmapDescriptor.fromAssetImage(
 
-        const ImageConfiguration(), "assets/images/automarkers.png",)
+      const ImageConfiguration(), "assets/images/automarkers.png",)
 
 
         .then(
@@ -94,45 +93,45 @@ class _HomePageState extends State<GHomePage> {
 
       ),
     ) :
-      Container(
-        child: SafeArea(
-          // on below line creating google maps
-          child: GoogleMap(
-            // on below line setting camera position
-            mapToolbarEnabled: false,
-            zoomControlsEnabled: false,
+    Container(
+      child: SafeArea(
+        // on below line creating google maps
+        child: GoogleMap(
+          // on below line setting camera position
+          mapToolbarEnabled: false,
+          zoomControlsEnabled: false,
 
-            initialCameraPosition: cameraPosition,
-            // on below line we are setting markers on the map
-            markers: Set<Marker>.of(_markers),
-            // on below line specifying map type.
-            mapType: MapType.normal,
-            // on below line setting user location enabled.
-            myLocationEnabled: true,
-            // on below line setting compass enabled.
-            compassEnabled: true,
-            // on below line specifying controller on map complete.
-            onMapCreated: (GoogleMapController controller){
-              _controller.complete(controller);
-            },
-          ),
+          initialCameraPosition: cameraPosition!,
+          // on below line we are setting markers on the map
+          markers: Set<Marker>.of(_markers),
+          // on below line specifying map type.
+          mapType: MapType.normal,
+          // on below line setting user location enabled.
+          myLocationEnabled: true,
+          // on below line setting compass enabled.
+          compassEnabled: true,
+          // on below line specifying controller on map complete.
+          onMapCreated: (GoogleMapController controller){
+            _controller.complete(controller);
+          },
         ),
-      );
+      ),
+    );
 
-      // on pressing floating action button the camera will take to user
-      // current locatio
-      
-      
-      
+    // on pressing floating action button the camera will take to user
+    // current locatio
 
-      // floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
-      //   floatingActionButton: FloatingActionButton(
-      //     backgroundColor: Color(0xffc56b10),
-      //   onPressed: () async{
-          // getUserCurrentLocation().then((value) async {
-          //   print(value.latitude.toString() +" "+value.longitude.toString());
 
-            // marker added for current users location
+
+
+    // floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+    //   floatingActionButton: FloatingActionButton(
+    //     backgroundColor: Color(0xffc56b10),
+    //   onPressed: () async{
+    // getUserCurrentLocation().then((value) async {
+    //   print(value.latitude.toString() +" "+value.longitude.toString());
+
+    // marker added for current users location
     //
     //
     //         final GoogleMapController controller = await _controller.future;
@@ -147,8 +146,8 @@ class _HomePageState extends State<GHomePage> {
     //
     //
 
-  // }
-}
+    // }
+  }
   void _showModalBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
@@ -186,3 +185,4 @@ class _HomePageState extends State<GHomePage> {
 
 
 }
+//

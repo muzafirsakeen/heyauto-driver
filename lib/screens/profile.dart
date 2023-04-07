@@ -2,17 +2,22 @@
 
 import 'dart:io';
 import 'dart:convert' as convert;
+import 'package:heyauto/main.dart';
+import 'package:heyauto/screens/camera.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart';
-import 'package:google_mlkit_face_detection/google_mlkit_face_detection.dart';
-import 'package:firebase_ml_vision/firebase_ml_vision.dart';
 
 import 'dart:ui' as ui;
 import 'login_screen/homescreen.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path/path.dart';
+import 'package:async/async.dart';
+import 'dart:io';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 bool _status = true;
 
 
@@ -33,6 +38,7 @@ class MapScreenState extends State<Profile>
   // ui. Images _images;
 
 
+
   Future pickImage(ImageSource source) async{
   try {
     final image = await ImagePicker().pickImage(source: source);
@@ -42,17 +48,47 @@ class MapScreenState extends State<Profile>
       this.image = imageTemporary;
     });
 
-    FirebaseVisionImage fbVisionImage = FirebaseVisionImage.fromFile(imageTemporary);
-     var faceDetector = FirebaseVision.instance.faceDetector();
-    List listOfFaces = await faceDetector.processImage(fbVisionImage);
-    
+    // FirebaseVisionImage fbVisionImage = FirebaseVisionImage.fromFile(imageTemporary);
+    //  var faceDetector = FirebaseVision.instance.faceDetector();
+    // List listOfFaces = await faceDetector.processImage(fbVisionImage);
+
   }
   on PlatformException catch (e){
     print('failed to pick image:$e');
   }
+  upload(image!);
 
 
 }
+
+  upload(File imageFile) async {
+    // open a bytestream
+    var stream = new http.ByteStream(DelegatingStream.typed(imageFile.openRead()));
+    // get file length
+    var length = await imageFile.length();
+
+    // string to uri
+    var uri = Uri.parse("http://ip:8082/composer/predict");
+
+    // create multipart request
+    var request = new http.MultipartRequest("POST", uri);
+
+    // multipart that takes file
+    var multipartFile = new http.MultipartFile('file', stream, length,
+        filename: basename(imageFile.path));
+
+    // add file to multipart
+    request.files.add(multipartFile);
+
+    // send
+    var response = await request.send();
+    print(response.statusCode);
+
+    // listen for response
+    response.stream.transform(utf8.decoder).listen((value) {
+      print(value);
+    });
+  }
 
 
 
@@ -406,6 +442,7 @@ class MapScreenState extends State<Profile>
               child: ElevatedButton(
                 child: const Text("Save"),
                 onPressed: () {
+                  // Navigator.pushReplacement(context as BuildContext, MaterialPageRoute(builder: (context)=>const MyApps()));
                   setState(() {
                     _status = true;
                     FocusScope.of(BuildContext as BuildContext).requestFocus(FocusNode());
